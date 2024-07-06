@@ -515,8 +515,16 @@ int _MCP_ReadCOSXml_patch(uint32_t u1, uint32_t u2, MCPPPrepareTitleInfo *xmlDat
             xmlData->avail_size    = 0;
             xmlData->overlay_arena = 0;
 
+            bool dlpPatched = false;
+
             // Give us full permissions everywhere
             for (uint32_t i = 0; i < 19; i++) {
+                // Add DLP permission group to all titles
+                if (!dlpPatched && xmlData->permissions[i].group == 0) {
+                    xmlData->permissions[i].group = 25; // DLP
+                    dlpPatched                    = true;
+                }
+
                 xmlData->permissions[i].mask = 0xFFFFFFFFFFFFFFFF;
             }
 
