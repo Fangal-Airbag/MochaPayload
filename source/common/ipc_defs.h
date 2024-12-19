@@ -114,4 +114,5 @@ typedef struct {
     unsigned char unk3[0x12D8 - 0x68];
 } MCPLoadFileRequest;
 
-#define MOCHA_API_VERSION 1
+// Use custom version to allow for dumpling to distinguish this version of Mocha from others
+#define MOCHA_API_VERSION 999 

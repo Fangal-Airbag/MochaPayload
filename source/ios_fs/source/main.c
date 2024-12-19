@@ -44,7 +44,8 @@ int FSA_IOCTLV_HOOK(ResourceRequest *param_1, uint32_t u2, uint32_t u3) {
     int toBeRestored              = 0;
     for (int i = 0; i < PATCHED_CLIENT_HANDLES_MAX_COUNT; i++) {
         if (patchedClientHandles[i] == clientHandle) {
-            clientHandle->processData->capabilityMask = 0xffffffffffffffffL & ~DISABLED_CAPABILITIES;
+            // Removed DISABLE_CAPABILITIES to allow Dumpling to access all devices
+            clientHandle->processData->capabilityMask = 0xffffffffffffffffL;
             // printf("IOCTL: Force mask to 0xFFFFFFFFFFFFFFFF for client %08X\n", (uint32_t) clientHandle);
             toBeRestored = 1;
             break;
@@ -69,7 +70,8 @@ int FSA_IOCTL_HOOK(ResourceRequest *request, uint32_t u2, uint32_t u3, uint32_t 
     for (int i = 0; i < PATCHED_CLIENT_HANDLES_MAX_COUNT; i++) {
         if (patchedClientHandles[i] == clientHandle) {
             // printf("IOCTL: Force mask to 0xFFFFFFFFFFFFFFFF for client %08X\n", (uint32_t) clientHandle);
-            clientHandle->processData->capabilityMask = 0xffffffffffffffffL & ~DISABLED_CAPABILITIES;
+            // Removed DISABLE_CAPABILITIES to allow Dumpling to access all devices
+            clientHandle->processData->capabilityMask = 0xffffffffffffffffL;
             toBeRestored                              = 1;
             break;
         }
