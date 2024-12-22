@@ -27,7 +27,6 @@
 #include "imports.h"
 #include "logger.h"
 #include "svc.h"
-#include "wupserver.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -120,7 +119,6 @@ static int ipc_ioctl(ipcmessage *message) {
         }
         case IOCTL_KILL_SERVER: {
             ipcNodeKilled = 1;
-            wupserver_deinit();
             break;
         }
         case IOCTL_MEMCPY: {
